@@ -1,0 +1,704 @@
+/* ===== PROFIL COLLABORATEUR ===== */
+.profile-header {
+    display: flex;
+    justify-content: space-between; /* Aligne les sections gauche et droite */
+    align-items: flex-start; /* Alignement vertical en haut */
+    padding: 2rem;
+    background-color: var(--secondary-color);
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+    position: relative; /* Nécessaire pour positionner les éléments internes */
+}
+
+/* Partie gauche : photo et informations */
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 0.5rem; /* Coins arrondis */
+    box-shadow: var(--box-shadow); /* Légère ombre */
+    object-fit: cover; /* Ajuste l'image à l'intérieur */
+}
+
+.profile-info h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    text-align: left; /* S'assure que le texte reste aligné à gauche */
+}
+
+.profile-info p {
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-align: left; /* Alignement à gauche */
+}
+
+.profile-info h1 {
+    font-weight: 600;
+}   
+
+/* Partie droite : bouton Paramètres */
+.profile-header .profile-right {
+    display: flex;
+    justify-content: flex-end; /* Aligne le bouton à droite */
+    align-items: flex-start; /* Positionne le bouton en haut */
+}
+
+/* ===== STRUCTURE DES SECTIONS ===== */
+.content-container {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 100%; /* S'assure que les sections respectent la largeur globale */
+}
+
+/* Style des sections */
+.half-width {
+    flex: 1;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Titre des sections */
+.half-width h2 {
+    font-size: 1.3rem;
+}
+
+.section-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    height: 74px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 1px rgb(153, 153, 153);
+}
+
+.collabo-materiel-card.selected-materiel {
+    border: 1px solid #007bff; /* Bordure bleue */
+    border-radius: 0.5rem;
+    transition: border 0.3s ease-in-out; /* Seulement la bordure */
+}
+
+
+.add-materiel-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    border: 2px dashed #aaa;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.add-materiel-btn {
+    font-size: 36px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.add-materiel-card:hover {
+    background-color: #e9ecef;
+}
+
+/* ===== COMMENTAIRES ===== */
+#ajouter-commentaire-form{
+    position: relative;
+}
+
+.mention-dropdown {
+    position: absolute;
+    bottom: 180px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    list-style: none;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 200px;
+}
+
+.mention-dropdown li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.mention-dropdown li:hover {
+    background: #eee;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 100px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 0.125rem solid #ccc;
+    resize: none;
+    transition: border 0.3s ease;
+}
+
+/* Exemple de style */
+.highlight {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ===== COMMENT CARDS ===== */
+
+.comment-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between; /* Espace maximum entre le service et le cœur */
+    align-items: center; /* Aligner verticalement */
+}
+
+.comment-header .service {
+    font-size: 14px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.comment-content {
+    font-size: 16px;
+    margin-bottom: 1rem;
+}
+
+.comment-meta {
+    color: #8b8b8b;
+}
+
+.comment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+}
+
+.comment-card .replies {
+    padding-left: 16px;
+    border-left: 2px solid #eee;
+    margin-top: 8px;
+}
+
+/* Bouton J'aime - Style de base */
+.like-btn {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none; /* Supprime les bordures si c'est un bouton */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* Animation douce */
+    display: inline-block;
+}
+
+/* Icône "non-liké" */
+.like-btn:not(.liked) {
+    background-image: url('/images/not-liked.png'); /* Icône cœur vide */
+    animation: grow-dislike 0.3s ease-out; /* Animation d'agrandissement */
+}
+
+.modifier-nom-img{
+    height: 20px;
+    width: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: scale 0.3s ease;
+}
+
+.modifier-nom-img:hover {
+    scale: 0.9;
+    transition: scale 0.3s ease;
+}
+
+#profile-name{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+/* ✅ Garde le style original du H1 mais permet l'édition */
+#collaborateur-nom {
+    display: inline-block;
+    cursor: text; /* Change le curseur en mode édition */
+    border-radius: 0.5rem;
+    transition: background 0.2s ease-in-out;
+}
+
+/* ✅ Indique visuellement qu'on peut modifier */
+#collaborateur-nom.editable {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+/* ✅ Style du bouton valider ✔ */
+.btn-valider {
+    height: 42px;
+    width: 42px;
+    margin-left: 10px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn-annuler{
+    margin-left: 0;
+    height: 42px;
+}
+
+.info-bulle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 4px solid red;
+    padding: 6px 10px;
+    border-radius: 5px;
+    top: 5px;
+    left: 155px;
+    width: max-content;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.2sease-in-out;
+    z-index: 999999;
+}
+
+.info-bulle.visible {
+    opacity: 1;
+    color: grey;
+    font-size: 12px;
+}
+
+.btn-valider:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+/* Icône "liké" */
+.like-btn.liked {
+    background-image: url('/images/liked.png'); /* Icône cœur plein */
+    animation: grow-like 0.3s ease-out; /* Animation d'agrandissement */
+}
+
+/* Conteneur pour l'icône et l'explosion */
+.like-container {
+    position: relative;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+
+/* Particules */
+.explosion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ne pas interférer avec le clic */
+    transform: translate(-50%, -50%);
+}
+
+.explosion span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: red;
+    border-radius: 50%;
+    animation: explode 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.deleted-comment {
+    color: grey;
+    font-style: italic;
+}
+
+.comment-card.deleted {
+    background: #f5f5f5;
+}
+
+/* Animation des particules */
+@keyframes explode {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--x) * 40px), calc(var(--y) * 40px));
+        opacity: 0;
+    }
+}
+
+
+/* Animation pour le like */
+@keyframes grow-like {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animation pour le dislike */
+@keyframes grow-dislike {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* CSS pour changer le curseur */
+.like-count {
+    cursor: pointer; /* Change le curseur en main */
+}
+
+.like-count:hover {
+    color:#4a90e2;
+}
+
+/* Style général de la liste */
+#likes-list {
+    max-height: 200px; /* Limite la hauteur pour éviter que la popup ne s'étende trop */
+    overflow-y: auto; /* Ajoute un scroll si la liste dépasse la hauteur définie */
+    margin: 10px 0;
+    padding: 0;
+}
+
+/* Style pour chaque élément de la liste */
+#likes-list p {
+    font-size: 14px; /* Taille similaire à un élément "small" */
+    margin: 10px 0; /* Espacement entre les éléments */
+    display: flex;
+    justify-content: space-between; /* Espace entre le texte et l'icône */
+    align-items: center; /* Aligne verticalement le contenu */
+    border-bottom: 1px solid #ddd; /* Ligne entre chaque élément */
+    padding-bottom: 5px;
+}
+
+/* Icône de cœur */
+#likes-list p i {
+    color: red; /* Couleur pour le cœur */
+    font-size: 16px; /* Taille du cœur */
+    margin-left: 10px; /* Espacement avec le texte */
+}
+
+.edit-textarea {
+    width: 100%;
+    height: 80px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 14px;
+    resize: none;
+}
+
+.comment-card-container {
+    position: relative; /* Définit un contexte de positionnement stable */
+}
+
+/* Mise à jour de la carte matériel */
+.materiel-card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 10px;
+    margin: 0.5rem;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.materiel-card.selected {
+    background-color: #e0f7ff; /* Bleu pâle pour la sélection */
+}
+
+/* Alignement des éléments */
+.materiel-header {
+    display: flex;
+    align-items: flex-start; /* Alignement en haut */
+    gap: 1.5rem; /* Espacement entre l'image et le texte */
+}
+
+.materiel-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Texte aligné à gauche */
+    margin-top: 1rem;;
+    width: 100%;
+}
+
+.materiel-details p {
+    margin: 0;
+    font-size: 0.9rem; /* Taille standard pour les détails */
+    color: #333;
+}
+
+.materiel-details p.num-serie {
+    color: #777; /* Grisé pour le numéro de série */
+    font-size: 0.8rem; /* Plus petit */
+}
+
+/* État du matériel */
+.materiel-etat {
+    margin: 0 0 0 1rem;
+    font-size: 0.9rem;
+    color: #007bff; /* Bleu */
+    text-align: left; /* Aligné à gauche */
+}
+
+/* Liste des matériels avec défilement */
+.materiels-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 0.5rem; /* Espace pour éviter le chevauchement avec la barre de défilement */
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+}
+
+.materiel-info img {
+    height: 4rem;
+    object-fit:contain;
+    transition: transform 0.3s ease;
+}
+
+.materiel-img {
+    max-width: 3.5rem; /* Adapte la largeur de l'image */
+    max-height: 3.5rem; /* Adapte la hauteur de l'image */
+    object-fit: contain; /* S'assure que l'image garde ses proportions */
+    transition: transform 0.3s ease;
+}
+
+.materiel-img:hover {
+    transform: scale(1.1);
+    object-fit: contain; 
+}
+/* Bouton Retour */
+.popup-content h2 {
+    margin-bottom: 1rem;
+}
+#close-materiel-popup {
+    display: inline-block;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+#close-materiel-popup:hover {
+    background-color: #ddd;
+}
+
+.collabo-materiel-card {
+    position:relative;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.collabo-materiel-card .materiel-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+
+.collabo-materiel-card .materiel-details p {
+    margin: 0;
+    text-align: left; /* Aligner à gauche */
+}
+
+.collabo-materiel-card .materiel-details .num-serie {
+    color: grey;
+    font-size: 0.9rem;
+}
+
+.collabo-materiel-card .materiel-etat {
+    text-align: left;
+    color: #007bff; /* Bleu pour l'état */
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* Ligne horizontale pour le modèle et les 3 points */
+.materiel-details-first-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Espace entre les deux éléments */
+    gap: 1rem; /* Optionnel : espace entre les éléments si nécessaire */
+    width: 100%; /* Pour s'assurer que les éléments s'étalent horizontalement */
+}
+
+/* Modèle (texte à gauche) */
+.materiel-modele {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0; /* Enlever les marges par défaut */
+    flex: 1; /* Permet d'occuper l'espace disponible à gauche */
+}
+
+
+/* ✅ Pop-up spécifique pour l'ajout de matériel */
+.param-popup .popup-content {
+    width: 450px;
+    padding: 25px;
+    border-radius: 0.5rem;
+    background: white;
+    text-align: left;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+/* ✅ Titre centré et plus visible */
+.param-popup h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* ✅ Formulaire organisé */
+.param-popup form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.param-popup .btn {
+    margin-left: 0;
+}
+/* ✅ Champs du formulaire */
+.param-popup input,
+.param-popup select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border 0.2s ease-in-out;
+}
+
+/* ✅ Effet sur focus */
+.param-popup input:focus,
+.param-popup select:focus {
+    border: 1px solid var(--primary-color);
+    outline: none;
+}
+
+/* ✅ Bouton fermer */
+.param-popup .close-popup {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.2s ease-in-out;
+}
+
+.param-popup #parametres-options {
+    display: flex;
+    flex-direction: column; 
+    text-align: center;
+}
+
+.param-popup .close-popup:hover {
+    color: red;
+}
+
+#supprimer-confirmation {
+    text-align: center;
+}
+
+.param-popup .btn-back {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    margin: 0;
+}
+
+.param-popup .popup-header {
+    margin-top: 1rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .content-container {
+        flex-direction: column; 
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-left {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .profile-pic {
+        margin-bottom: 1rem;
+    }
+
+    .profile-right {
+        margin-top: 1rem; /* Espace entre les sections pour éviter l'encombrement */
+    }
+}

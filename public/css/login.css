@@ -1,0 +1,110 @@
+/* ===== PAGE DE CONNEXION ===== */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--secondary-color); /* Fond cohérent avec le projet */
+    font-family: Arial, sans-serif;
+}
+
+/* Conteneur principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Boîte de connexion */
+.login-box {
+    background: white;
+    padding: 2rem; /* Espacement interne */
+    border-radius: 0.5rem; /* Coins arrondis */
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 22rem; /* Largeur maximale pour petits écrans */
+    text-align: center;
+}
+
+/* Titre de la boîte */
+.login-box h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+/* Groupes d'entrée */
+.input-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 0.125rem solid #ccc; /* Bordure subtile */
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Focus sur les champs */
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0.25rem rgba(74, 144, 226, 0.5);
+}
+
+/* Bouton de connexion */
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #357ab8;
+    transform: translateY(-0.1rem); /* Légère élévation au survol */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .login-box h2 {
+        font-size: 1.25rem;
+    }
+
+    .input-group label {
+        font-size: 0.875rem;
+    }
+
+    .input-group input {
+        padding: 0.625rem;
+        font-size: 0.875rem;
+    }
+
+    .login-button {
+        padding: 0.625rem;
+        font-size: 0.875rem;
+    }
+}
