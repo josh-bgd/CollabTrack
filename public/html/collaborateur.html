@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Collaborateur</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/collaborateur.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- En-tête -->
+        <header>
+            <!-- Partie gauche : Bouton retour + Service connecté -->
+            <div class="header-left">
+                <button id="back-btn" class="btn-back btn" aria-label="Retour">&lt; </button>
+                <div class="service-info">
+                    <img src="images/avatar.jpg" alt="Service" class="service-icon">
+                    <span id="service-name"></span>
+                </div>
+            </div>
+        
+            <!-- Partie centrale : Titre -->
+            <div class="header-title">
+                <h1>Gestion des Equipements</h1>
+            </div>
+        
+            <!-- Partie droite : Boutons Notifications & Déconnexion -->
+            <div class="header-actions">
+                <div class="notifications-div">
+                    <button id="notifications-btn" class="btn btn-primary" aria-label="Afficher les notifications">
+                        <img src="images/notification-icon.png" alt="Notifications"> 
+                        <span id="notif-counter" class="notif-counter hidden">0</span>
+                        Notifications
+                    </button>
+                    <div id="notifications-container" class="notifications-dropdown hidden">
+                        <div class="flex-horizontal">
+                            <h3>Notifications</h3>
+                        </div>
+                        <div id="notifications-list"></div>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-danger logout">
+                    <img src="images/logout-icon.png" alt="Déconnexion"> Déconnexion
+                </button>
+            </div>
+
+            <div id="materiels-popup" class="popup hidden wide-popup">
+                <div class="popup-content">
+                    <h2>Sélectionnez un matériel</h2>
+                    <div id="materiels-list" class="materiels-list"></div>
+                    <button id="validate-materiel" class="btn btn-primary" disabled>Valider</button>
+                    <button id="close-materiel-popup" class="btn btn-secondary">Retour</button>
+                </div>
+            </div>           
+            
+            <!-- Pop-up de confirmation de déconnexion -->
+            <div id="logout-popup" class="popup hidden">
+                <div class="popup-content">
+                    <p>Voulez-vous vraiment vous déconnecter ?</p>
+                    <button id="confirm-logout" class="btn btn-danger">Oui</button>
+                    <button id="cancel-logout" class="btn-grey">Non</button>
+                </div>
+            </div>
+
+           <!-- Pop-up de confirmation de suppression de commentaire -->
+            <div id="delete-popup" class="popup hidden">
+                <div class="popup-content">
+                    <p>Voulez-vous vraiment supprimer ce commentaire ?</p>
+                    <div class="popup-buttons">
+                        <button id="confirm-delete" class="btn btn-danger">Supprimer</button>
+                        <button id="cancel-delete" class="btn btn-secondary">Annuler</button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Pop-up -->
+             <div id="likes-popup" class="popup hidden">
+                <div class="popup-content">
+                    <div id="likes-list">
+                        <!-- La liste des services sera chargée ici -->
+                    </div>
+                    <div class="popup-footer">
+                        <button id="close-popup" class="btn btn-secondary">Retour</button>
+                    </div>
+                </div>
+            </div>            
+
+            <div id="confirmation-popup" class="popup hidden">
+                <div class="popup-content">
+                    <p id="confirmation-message"></p>
+                    <div class="popup-buttons">
+                        <button id="confirm-action" class="btn btn-primary">Confirmer</button>
+                        <button id="cancel-action" class=" btn-grey">Retour</button>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+    
+        <!-- En-tête du profil collaborateur -->
+        <div class="profile-header">
+            <!-- Partie gauche : photo et informations -->
+            <div class="profile-left">
+                <img src="images/avatar.jpg" alt="Photo du collaborateur" class="profile-pic">
+                <div class="profile-info">
+                    <div id="profile-name">
+                        <h1 id="collaborateur-nom">Nom Prénom</h1>
+                        <img id="modifier-nom" class="modifier-nom-img" src="/images/crayon.png"></img>
+                    </div>
+                    <b><p id="collaborateur-service">Service</p></b>
+                </div>
+            </div>
+
+            <!-- Partie droite : bouton Paramètres -->
+            <div class="profile-right">
+                <button id="parametre-popup-btn" class="btn-grey" aria-label="Paramètres du profil collaborateur">
+                    <img src="images/settings-icon.png">
+                    Paramètres
+                </button>
+            </div>
+        </div>
+
+        <!-- ✅ Pop-up Paramètres Collaborateur -->
+        <div id="collaborateur-parametres-popup" class="popup param-popup hidden">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <button id="retour-bouton" class="btn-back btn" aria-label="Retour" onclick="afficherParametres()">&lt; </button>
+                    <h3>Paramètres du Collaborateur</h3>
+                    <span class="close-popup" onclick="fermerPopupParametres()">&times;</span>
+                </div>
+
+                <!-- Liste des options -->
+                <div id="parametres-options">
+                    <button class="btn btn-danger parametre-item" id="supprimer-collaborateur-btn">Supprimer ce collaborateur</button>
+                    <button class="btn btn-primary parametre-item" id="deplacer-collaborateur-btn">Déplacer vers un autre service</button>
+                </div>
+
+                <!-- Actions spécifiques -->
+                <div id="parametres-action" class="hidden">
+                    <!-- Suppression du collaborateur -->
+                    <div id="supprimer-confirmation" class="hidden">
+                        <p>Voulez-vous vraiment supprimer ce collaborateur ?</p>
+                        <button class="btn btn-danger" id="confirmer-suppression">Supprimer</button>
+                        <button class="btn btn-grey" onclick="afficherParametres()">Annuler</button>
+                    </div>
+
+                    <!-- Déplacement du collaborateur -->
+                    <div id="deplacer-service" class="hidden">
+                        <p>Choisissez le nouveau service :</p>
+                        <select id="deplacer-collaborateur-service"></select>
+                        <button class="btn btn-primary" id="confirmer-deplacement">Déplacer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Contenu principal -->
+        <main>
+            <div class="content-container">
+                <!-- Section Matériels -->
+                <section id="materiels" class="section half-width" aria-labelledby="materiels-header">
+                    <div class="section-header">
+                        <h2 id="materiels-header">Matériels attribués</h2>
+                        <button id="ajouter-materiel" class=" btn btn-primary">Attribuer un matériel</button>
+                    </div>
+                    <div id="materiels-container" class="grid-container"></div>
+                </section>
+
+                <!-- Section Commentaires -->
+                <section id="commentaires" class="section half-width" aria-labelledby="commentaires-header">
+                    <div class="section-header">
+                        <h2 id="commentaires-header">Espace discussion</h2>
+                        <button id="retour-commentaires" class="btn btn-secondary hidden">Retour</button>
+                    </div>
+                    <div id="commentaires-container" class="comments-timeline"></div>
+                    <form id="ajouter-commentaire-form" class="comment-form">
+                        <textarea id="nouveau-commentaire" placeholder="Ajouter un commentaire..." required></textarea>
+                        <button type="submit" class="btn btn-primary">Publier</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/global.js"></script>
+    <script src="js/collaborateur.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>

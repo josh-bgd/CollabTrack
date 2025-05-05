@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Collaborateurs</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/accueil.css">
+</head>
+<body>
+    <!-- En-tête de la page -->
+    <header>
+        <!-- Partie gauche : Bouton retour + Service connecté -->
+        <div class="header-left">
+            <div class="service-info">
+                <img src="images/avatar.jpg" alt="Service" class="service-icon">
+                <span id="service-name"></span>
+            </div>
+        </div>
+    
+        <!-- Partie centrale : Titre -->
+        <div class="header-title">
+            <h1>Gestion des Equipements</h1>
+        </div>
+    
+        <!-- Partie droite : Boutons Notifications & Déconnexion -->
+        <div class="header-actions">
+            <div class="notifications-div">
+                <button id="notifications-btn" class="btn btn-primary" aria-label="Afficher les notifications">
+                    <img src="images/notification-icon.png" alt="Notifications"> 
+                    <span id="notif-counter" class="notif-counter hidden">0</span>
+                    Notifications
+                </button>
+                <div id="notifications-container" class="notifications-dropdown hidden">
+                    <div class="flex-horizontal">
+                        <h3>Notifications</h3>
+                    </div>
+                    <div id="notifications-list"></div>
+                </div>
+            </div>
+            <button id="logout-btn" class="btn btn-danger logout">
+                <img src="images/logout-icon.png" alt="Déconnexion"> Déconnexion
+            </button>
+        </div>
+    </header>
+    
+
+    <!-- Pop-up de confirmation de déconnexion -->
+    <div id="logout-popup" class="popup hidden">
+        <div class="popup-content">
+            <p>Voulez-vous vraiment vous déconnecter ?</p>
+            <button id="confirm-logout" class="btn btn-danger">Oui</button>
+            <button id="cancel-logout" class="btn-grey">Non</button>
+        </div>
+    </div>
+
+    <!-- Popup pour afficher l'historique -->
+    <div id="historique-popup" class="popup hidden">
+        <div class="popup-content">
+            <button id="close-historique-popup" class="popup-close-btn">×</button>
+            <h2>Historique d'attribution</h2>
+            <div id="historique-list" class="historique-list">
+                <!-- Les cartes dynamiques seront injectées ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 🗑️ Pop-up de confirmation de suppression -->
+    <div id="delete-popup" class="popup hidden">
+        <div class="popup-content">
+            <p>Voulez-vous vraiment supprimer ce matériel ? Cette action est irréversible.</p>
+            <button id="confirm-delete" class="btn btn-danger">Supprimer</button>
+            <button id="cancel-delete" class="btn-grey">Annuler</button>
+        </div>
+    </div>
+
+    <!-- ✅ Pop-up pour ajouter un matériel -->
+    <div id="ajout-materiel-popup" class="popup hidden ajout-popup">
+        <div class="popup-content">
+            <div class="ajout-materiel-popup-header">
+                <span class="close-popup">&times;</span>
+                <h3>Ajouter un nouveau matériel</h3>
+            </div>
+            <form id="ajout-materiel-form">
+                <label>Marque :</label>
+                <input type="text" id="materiel-marque" required>
+
+                <label>Modèle :</label>
+                <input type="text" id="materiel-modele" required>
+
+                <label>N° de série :</label>
+                <input type="text" id="materiel-num-serie">
+
+                <label>Type :</label>
+                <select id="materiel-type" required>
+                    <!-- ⚡ Les options seront remplies dynamiquement via JS -->
+                </select>
+
+                <label>État :</label>
+                <select id="materiel-etat" required>
+                    <option value="Neuf">Neuf</option>
+                    <option value="Très bon état">Très bon état</option>
+                    <option value="Bon état">Bon état</option>
+                    <option value="Moyen état">Moyen état</option>
+                    <option value="Mauvais état">Mauvais état</option>
+                    <option value="Inutilisable">Inutilisable</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ✅ Pop-up pour ajouter un collaborateur -->
+    <div id="ajout-collaborateur-popup" class="popup hidden ajout-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Ajouter un collaborateur</h3>
+                <span class="close-popup" onclick="document.getElementById('ajout-collaborateur-popup').classList.add('hidden');">&times;</span>
+            </div>
+            <form id="ajout-collaborateur-form">
+                <label>Prénom :</label>
+                <input type="text" id="collaborateur-prenom" required>
+    
+                <label>Nom :</label>
+                <input type="text" id="collaborateur-nom" required>
+    
+                <label>Téléphone :</label>
+                <input type="text" id="collaborateur-telephone" required>
+    
+                <label>Service :</label>
+                <select id="collaborateur-service" required>
+                    <option value="" selected disabled>Choisir un service</option>
+                </select>
+
+                <label>Gardien :</label>
+                <select id="collaborateur-gardien" required>
+                    <option value="" selected disabled>Choisir une option</option>
+                    <option value="0">Non</option>
+                    <option value="1">Oui</option>
+                </select>
+    
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <!-- Contenu principal -->
+    <main>
+        <!-- Menu d'onglets -->
+        <nav class="tab-menu">
+            <button class="tab" data-section="collaborateurs">Collaborateurs</button>
+            <button class="tab" data-section="materiels">Matériels</button>
+            <button class="tab admin-only hidden" data-section="administration">Administration</button>
+        </nav>
+
+        <!-- Section dynamique pour afficher le contenu -->
+        <section id="dynamic-content" class="hidden">
+            <!-- Contenu dynamique injecté ici par le JS -->
+        </section>
+    </main>
+
+    <script src="js/global.js"></script>
+    <script type="module" src="js/accueil.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>
